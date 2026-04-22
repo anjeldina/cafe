@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'menu_page.dart'; // Pastikan file menu_page.dart sudah dibuat
+import 'menu_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-  static const Color colorBrown = Color(0xFF3C2218);
-  static const Color colorPink = Color(0xFFFFC7C7);
+  static const Color colorBrown = Color(0xFF2E1B14); // lebih deep (elegan)
+  static const Color colorPink = Color(0xFFFFF4F6);  // pink soft premium
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -14,32 +14,31 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  // Daftar halaman yang akan ditampilkan berdasarkan BottomNavigationBar
   final List<Widget> _pages = [
     const HomeContent(),
-    const MenuPage(),      // Mengambil dari file menu_page.dart
+    const MenuPage(),
     const CheckoutPage(),
     const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(() => _selectedIndex = index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: HomePage.colorPink,
       body: _pages[_selectedIndex],
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: HomePage.colorBrown,
         unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.white,
+        elevation: 6,
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
-        elevation: 8,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
           BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'Menu'),
@@ -51,17 +50,17 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// ================= CONTENT BERANDA =================
+// ================= CONTENT =================
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
 
-  static const Color colorBrown = Color(0xFF3C2218);
-  static const Color colorPink = Color(0xFFFFC7C7);
+  static const Color colorBrown = Color(0xFF2E1B14);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -69,38 +68,38 @@ class HomeContent extends StatelessWidget {
             _buildHeroBanner(),
             _buildMenuGrid(),
             const Padding(
-              padding: EdgeInsets.fromLTRB(16, 20, 16, 10),
+              padding: EdgeInsets.fromLTRB(16, 24, 16, 12),
               child: Text(
                 "Spesial Hari Ini",
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w600,
                   color: colorBrown,
                 ),
               ),
             ),
-            _buildHorizontalMenu(), // Bagian dengan gambar berbeda
+            _buildHorizontalMenu(),
           ],
         ),
       ),
     );
   }
 
-  // Bar Atas (Poin & Lokasi)
+  // ================= TOP BAR =================
   Widget _buildTopBar() {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 18, 16, 10),
       child: Column(
         children: [
           Row(
             children: const [
-              Icon(Icons.stars, color: Colors.amber, size: 20),
-              SizedBox(width: 5),
-              Text("Silver 82%", style: TextStyle(fontWeight: FontWeight.w500)),
+              Icon(Icons.stars, color: Colors.amber, size: 18),
+              SizedBox(width: 6),
+              Text("Silver 82%", style: TextStyle(fontSize: 13)),
               SizedBox(width: 12),
-              Icon(Icons.monetization_on, color: Colors.amber, size: 20),
-              SizedBox(width: 5),
-              Text("32.000 pts", style: TextStyle(fontWeight: FontWeight.w500)),
+              Icon(Icons.monetization_on, color: Colors.amber, size: 18),
+              SizedBox(width: 6),
+              Text("32.000 pts", style: TextStyle(fontSize: 13)),
             ],
           ),
           const SizedBox(height: 14),
@@ -108,20 +107,25 @@ class HomeContent extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(14),
-              boxShadow: const [
-                BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4))
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: Colors.pink.withOpacity(0.12)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 14,
+                  offset: const Offset(0, 6),
+                ),
               ],
             ),
             child: const Row(
               children: [
-                Icon(Icons.location_on, color: colorBrown),
+                Icon(Icons.location_on, color: colorBrown, size: 20),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     "Menara Standard Chartered",
+                    style: TextStyle(fontWeight: FontWeight.w500),
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Icon(Icons.keyboard_arrow_down),
@@ -133,42 +137,50 @@ class HomeContent extends StatelessWidget {
     );
   }
 
-  // Banner Promo
+  // ================= HERO =================
   Widget _buildHeroBanner() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      height: 170,
+      height: 165,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.07),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
         image: const DecorationImage(
           image: NetworkImage(
-              'https://img.freepik.com/free-photo/delicious-coffee-beverage-with-splashes_23-2148419163.jpg'),
+            'https://img.freepik.com/free-photo/delicious-coffee-beverage-with-splashes_23-2148419163.jpg',
+          ),
           fit: BoxFit.cover,
         ),
       ),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          gradient: LinearGradient(
-            colors: [Colors.black.withOpacity(0.4), Colors.transparent],
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-          ),
+          borderRadius: BorderRadius.circular(24),
+          color: Colors.black.withOpacity(0.25),
         ),
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(18),
         alignment: Alignment.bottomLeft,
         child: const Text(
           "Promo Coklat Hari Ini 🍫",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
         ),
       ),
     );
   }
 
-  // Grid Menu Icon
+  // ================= MENU ICON =================
   Widget _buildMenuGrid() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 22),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -185,84 +197,83 @@ class HomeContent extends StatelessWidget {
     return Column(
       children: [
         Container(
-          decoration: const BoxDecoration(shape: BoxShape.circle, color: colorPink),
-          child: CircleAvatar(
-            backgroundColor: Colors.transparent,
-            radius: 28,
-            child: Icon(icon, color: colorBrown),
+          height: 56,
+          width: 56,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.pink.withOpacity(0.15)),
           ),
+          child: Icon(icon, color: colorBrown),
         ),
         const SizedBox(height: 6),
-        Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+        Text(label, style: const TextStyle(fontSize: 12)),
       ],
     );
   }
 
-  // List Horizontal Spesial Hari Ini
+  // ================= CARD MENU =================
   Widget _buildHorizontalMenu() {
-    // List data dengan gambar yang sudah Anda upload (cc.jpg, cm.jpg, cob.jpg)
     final List<Map<String, String>> spesialMenu = [
-      {
-        "nama": "Classic Choco",
-        "harga": "Rp19.000",
-        "gambar": "assets/images/cc.jpg"
-      },
-      {
-        "nama": "Choco Mood",
-        "harga": "Rp19.000",
-        "gambar": "assets/images/cm.jpg"
-      },
-      {
-        "nama": "Choco Oreo Blast",
-        "harga": "Rp17.000",
-        "gambar": "assets/images/cob.jpg"
-      },
+      {"nama": "Classic Choco", "harga": "Rp19.000", "gambar": "assets/images/cc.jpg"},
+      {"nama": "Choco Mood", "harga": "Rp19.000", "gambar": "assets/images/cm.jpg"},
+      {"nama": "Choco Oreo Blast", "harga": "Rp17.000", "gambar": "assets/images/cob.jpg"},
     ];
 
     return SizedBox(
-      height: 210,
+      height: 215,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: spesialMenu.length,
         itemBuilder: (context, index) {
           return Container(
-            width: 150,
-            margin: const EdgeInsets.only(left: 16, right: 5, bottom: 10),
+            width: 155,
+            margin: const EdgeInsets.only(left: 16, bottom: 12),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: const [
-                BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4))
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(color: Colors.pink.withOpacity(0.08)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 14,
+                  offset: const Offset(0, 6),
+                ),
               ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 110,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                    image: DecorationImage(
-                      image: AssetImage(spesialMenu[index]["gambar"]!),
-                      fit: BoxFit.cover,
-                    ),
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(22)),
+                  child: Image.asset(
+                    spesialMenu[index]["gambar"]!,
+                    height: 115,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(14),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         spesialMenu[index]["nama"]!,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: colorBrown,
+                        ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         spesialMenu[index]["harga"]!,
-                        style: const TextStyle(color: colorBrown, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: colorBrown,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ],
                   ),
@@ -276,16 +287,17 @@ class HomeContent extends StatelessWidget {
   }
 }
 
-// ================= HALAMAN LAIN (STATIS) =================
-
+// ================= PAGE LAIN =================
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
   @override
-  Widget build(BuildContext context) => const Center(child: Text("Halaman Checkout 🛒", style: TextStyle(fontSize: 20)));
+  Widget build(BuildContext context) =>
+      const Center(child: Text("Halaman Checkout 🛒"));
 }
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
   @override
-  Widget build(BuildContext context) => const Center(child: Text("Halaman Profil 👤", style: TextStyle(fontSize: 20)));
+  Widget build(BuildContext context) =>
+      const Center(child: Text("Halaman Profil 👤"));
 }
