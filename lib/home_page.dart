@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'menu_page.dart'; // Pastikan file menu_page.dart sudah dibuat
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,9 +14,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
+  // Daftar halaman yang akan ditampilkan berdasarkan BottomNavigationBar
   final List<Widget> _pages = [
     const HomeContent(),
-    const MenuPage(),
+    const MenuPage(),      // Mengambil dari file menu_page.dart
     const CheckoutPage(),
     const ProfilePage(),
   ];
@@ -49,6 +51,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+// ================= CONTENT BERANDA =================
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
 
@@ -76,13 +79,14 @@ class HomeContent extends StatelessWidget {
                 ),
               ),
             ),
-            _buildHorizontalMenu(),
+            _buildHorizontalMenu(), // Bagian dengan gambar berbeda
           ],
         ),
       ),
     );
   }
 
+  // Bar Atas (Poin & Lokasi)
   Widget _buildTopBar() {
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -106,11 +110,7 @@ class HomeContent extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(14),
               boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 8,
-                  offset: Offset(0, 4),
-                )
+                BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4))
               ],
             ),
             child: const Row(
@@ -133,6 +133,7 @@ class HomeContent extends StatelessWidget {
     );
   }
 
+  // Banner Promo
   Widget _buildHeroBanner() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -158,16 +159,13 @@ class HomeContent extends StatelessWidget {
         alignment: Alignment.bottomLeft,
         child: const Text(
           "Promo Coklat Hari Ini 🍫",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ),
     );
   }
 
+  // Grid Menu Icon
   Widget _buildMenuGrid() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -187,10 +185,7 @@ class HomeContent extends StatelessWidget {
     return Column(
       children: [
         Container(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: colorPink,
-          ),
+          decoration: const BoxDecoration(shape: BoxShape.circle, color: colorPink),
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
             radius: 28,
@@ -203,8 +198,9 @@ class HomeContent extends StatelessWidget {
     );
   }
 
+  // List Horizontal Spesial Hari Ini
   Widget _buildHorizontalMenu() {
-    // DATA MENU BERBEDA
+    // List data dengan gambar yang sudah Anda upload (cc.jpg, cm.jpg, cob.jpg)
     final List<Map<String, String>> spesialMenu = [
       {
         "nama": "Classic Choco",
@@ -280,20 +276,16 @@ class HomeContent extends StatelessWidget {
   }
 }
 
-class MenuPage extends StatelessWidget {
-  const MenuPage({super.key});
-  @override
-  Widget build(BuildContext context) => const Center(child: Text("Halaman Menu 🍫"));
-}
+// ================= HALAMAN LAIN (STATIS) =================
 
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
   @override
-  Widget build(BuildContext context) => const Center(child: Text("Halaman Checkout 🛒"));
+  Widget build(BuildContext context) => const Center(child: Text("Halaman Checkout 🛒", style: TextStyle(fontSize: 20)));
 }
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
   @override
-  Widget build(BuildContext context) => const Center(child: Text("Halaman Profil 👤"));
+  Widget build(BuildContext context) => const Center(child: Text("Halaman Profil 👤", style: TextStyle(fontSize: 20)));
 }
