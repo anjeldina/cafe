@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'splash_screen.dart'; // 🔥 tambahkan ini
 
 void main() {
   runApp(const CafeShopApp());
@@ -15,14 +15,15 @@ class CafeShopApp extends StatelessWidget {
       title: 'CafeShop - Anjel Dina',
       theme: ThemeData(
         useMaterial3: true,
-        // Tema warna utama: Cokelat Tua #3C2218
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF3C2218),
           primary: const Color(0xFF3C2218),
         ),
         fontFamily: 'Serif',
       ),
-      home: const LoginPage(),
+
+      // 🔥 MULAI DARI SPLASH
+      home: const SplashScreen(),
     );
   }
 }
